@@ -200,6 +200,12 @@ void DtaDev::discovery0()
             disk_info.BlockSIDAuthentication_SIDBlockedState = body->blockSIDAuthentication.sidBlockedState;
             disk_info.BlockSIDAuthentication_HardwareReset = body->blockSIDAuthentication.hardwareReset;
             break;
+		case FC_NAMESPACE: /* Namespace */
+			disk_info.Namespace = 1;
+			disk_info.Namespace_MaximumKeyCount = SWAP32(body->ns.MaximumKeyCount);
+			disk_info.Namespace_UnusedKeyCount = SWAP32(body->ns.UnusedKeyCount);
+			disk_info.Namespace_MaximumRangesPerNamespace = SWAP32(body->ns.MaximumRangesPerNamespace);
+			break;
         default:
 			if (0xbfff < (SWAP16(body->TPer.featureCode))) {
 				// silently ignore vendor specific segments as there is no public doc on them
@@ -310,6 +316,14 @@ void DtaDev::puke()
             << "SID blocked = " << (disk_info.BlockSIDAuthentication_SIDBlockedState ? "Y, " : "N, ")
             << "HW Reset can clear  = " << (disk_info.BlockSIDAuthentication_HardwareReset ? "Y" : "N")
             << std::endl;
+	}
+
+	if (disk_info.Namespace) {
+		cout << "Namespace function (" << HEXON(4) << FC_NAMESPACE << ")" << HEXOFF << std::endl;
+		cout << "    Maximum Key Count = " << disk_info.Namespace_MaximumKeyCount;
+		cout << ", Unused Key Count = " << disk_info.Namespace_UnusedKeyCount;
+		cout << ", Maximum Ranges Per Namespace = " << disk_info.Namespace_MaximumRangesPerNamespace;
+		cout << std::endl;
 	}
 
 	if (disk_info.Unknown)
