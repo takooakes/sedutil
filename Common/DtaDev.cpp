@@ -257,6 +257,14 @@ void DtaDev::discovery0()
 			disk_info.Pyrite20_initialPIN = body->pyrite20.initialPIN;
 			disk_info.Pyrite20_revertedPIN = body->pyrite20.revertedPIN;
 			break;
+		case FC_DATAREM: /* Supported Data Removal Mechanism */
+			disk_info.DataRem = 1;
+			disk_info.DataRem_processing = body->dataRem.processing;
+			disk_info.DataRem_supported = body->dataRem.supported;
+			disk_info.DataRem_format = body->dataRem.format;
+			for (int i = 0; i < 6; i++)
+				disk_info.DataRem_time[i] = SWAP16(body->dataRem.time[i]);
+			break;
         default:
 			if (0xbfff < (SWAP16(body->TPer.featureCode))) {
 				// silently ignore vendor specific segments as there is no public doc on them
@@ -385,9 +393,7 @@ void DtaDev::puke()
 		cout << ", Maximum Ranges Per Namespace = " << disk_info.Namespace_MaximumRangesPerNamespace;
 		cout << std::endl;
 	}
-<<<<<<< HEAD
 
-=======
 	if (disk_info.Opalite) {
 		cout << "Opalite function (" << HEXON(4) << FC_OPALITE << ")" << HEXOFF << std::endl;
 		cout << "    Base comID = " << HEXON(4) << disk_info.Opalite_basecomID << HEXOFF;
@@ -412,7 +418,19 @@ void DtaDev::puke()
 		cout << ", Reverted PIN = " << HEXON(2) << disk_info.Pyrite20_revertedPIN << HEXOFF;
 		cout << std::endl;
 	}
->>>>>>> e8a35ab (Add initial support for Opalite and Pyrite.)
+	if (disk_info.DataRem) {
+		cout << "Supported Data Removal Mechanism function (" << HEXON(4) << FC_DATAREM << ")" << HEXOFF << std::endl;
+		cout << "    Processing = " << (disk_info.DataRem_processing ? "Y" : "N");
+		string types[6] = { "Overwrite", "Block", "Crypto", "Unmap", "Reset Write Pointers", "Vendor Specific" };
+		for (int i = 0; i < 6; i++) {
+			if ((disk_info.DataRem_supported & (1 << i)) == 0)
+				continue;
+			cout << ", " << types[i];
+			cout << " = " << (disk_info.DataRem_time[i] * 2) <<
+			    (((disk_info.DataRem_format & (1 << i)) == 0) ? "s " : "m ");
+		}
+		cout << std::endl;
+	}
 	if (disk_info.Unknown)
 		cout << "**** " << (uint16_t)disk_info.Unknown << " **** Unknown function codes IGNORED " << std::endl;
 }
