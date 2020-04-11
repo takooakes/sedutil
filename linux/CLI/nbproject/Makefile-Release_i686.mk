@@ -52,10 +52,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/cdbdd37b/chash.o \
 	${OBJECTDIR}/_ext/cdbdd37b/hmac.o \
 	${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o \
-	${OBJECTDIR}/_ext/cdbdd37b/sha1.o \
+	${OBJECTDIR}/_ext/cdbdd37b/sha512.o \
 	${OBJECTDIR}/_ext/7a2a93ab/sedutil.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o \
+	${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevOS.o
 
 
@@ -168,10 +169,10 @@ ${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o: ../../Common/pbkdf2/pbkdf2.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o ../../Common/pbkdf2/pbkdf2.c
 
-${OBJECTDIR}/_ext/cdbdd37b/sha1.o: ../../Common/pbkdf2/sha1.c 
+${OBJECTDIR}/_ext/cdbdd37b/sha512.o: ../../Common/pbkdf2/sha512.c
 	${MKDIR} -p ${OBJECTDIR}/_ext/cdbdd37b
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/sha1.o ../../Common/pbkdf2/sha1.c
+	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/sha512.o ../../Common/pbkdf2/sha512.c
 
 ${OBJECTDIR}/_ext/7a2a93ab/sedutil.o: ../../Common/sedutil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/7a2a93ab
@@ -183,10 +184,15 @@ ${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o: ../DtaDevLinuxNvme.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o ../DtaDevLinuxNvme.cpp
 
-${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o: ../DtaDevLinuxSata.cpp 
+${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o: ../DtaDevLinuxSata.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
 	${RM} "$@.d"
 	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o ../DtaDevLinuxSata.cpp
+
+${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o: ../DtaDevLinuxDrive.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
+	${RM} "$@.d"
+	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o ../DtaDevLinuxDrive.cpp
 
 ${OBJECTDIR}/_ext/5c0/DtaDevOS.o: ../DtaDevOS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
