@@ -28,7 +28,7 @@ This program and it's accompanying Pre-Boot Authorization image allow
 you to enable the locking in SED's that comply with the TCG OPAL 2.00
 standard on bios machines.   
 
-You must be administrator/root to run the host managment program
+You must be administrator/root to run the host management program
 
 In Linux libata.allow_tpm must be set to 1 for SATA-based drives,
 including NGFF/M.2 SATA drives.Either adding libata.allow_tpm=1
