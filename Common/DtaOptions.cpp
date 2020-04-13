@@ -71,7 +71,7 @@ void usage()
 	printf("                                Opal: \"Admin<n>\" or \"User<n>\"\n");
 	printf("--enableUser <Admin1password> <userid> <device> \n");
 	printf("                                Enable a user (User1..UserX) on an Opal device\n");
-	printf("--setLockingRange <0...n> <RW|RO|LK> <Admin1password> <device> \n");
+	printf("--setLockingRange <0...n> <RW|RO|LK> <userid> <password> <device> \n");
 	printf("                                Set the status of a Locking Range\n");
 	printf("                                0 = GLobal 1..n  = LRn \n");
 	printf("--enableLockingRange <0...n> <Admin1password> <device> \n");

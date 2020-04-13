@@ -35,7 +35,6 @@ using namespace std;
 uint8_t UnlockSEDs(char * password) {
 /* Loop through drives */
     char devref[25];
-    //int failed = 0;
     OPALSTATUSCODE unlock_state = OPALSTATUSCODE::FAIL;
     DtaDev *tempDev;
     DtaDev *d;
