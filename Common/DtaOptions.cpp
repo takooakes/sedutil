@@ -82,7 +82,7 @@ void usage()
 	printf("                                0 = GLobal 1..n  = LRn \n");
 	printf("--setMBREnable <on|off> <Admin1password> <device> \n");
 	printf("                                Enable|Disable MBR shadowing \n");
-	printf("--setMBRDone <on|off> <Admin1password> <device> \n");
+	printf("--setMBRDone <on|off> <userid> <password> <device> \n");
 	printf("                                set|unset MBRDone\n");
 	printf("--loadPBAimage <Admin1password> <file> <device> \n");
 	printf("                                Write <file> to MBR Shadow area\n");
@@ -103,6 +103,8 @@ void usage()
     printf("--prepareForS3Sleep <0...n> <Admin1password> <device>\n");
     printf("                                Automatically unlock range after S3 resume\n");
     printf("                                This command will save the password to kernel memory\n");
+	printf("--addUserToLockingACEs <userid> <Admin1password> <device> \n");
+	printf("                                add UserX to locking ACEs\n");
     printf("\n");
     printf("Examples \n");
     printf("sedutil-cli --scan \n");
@@ -276,16 +278,17 @@ uint8_t DtaOptions(int argc, char * argv[], DTA_OPTIONS * opts)
 			OPTION_IS(password)
 			OPTION_IS(device)
 			END_OPTION
-		BEGIN_OPTION(setMBRDone, 3)
+		BEGIN_OPTION(setMBRDone, 4)
 			TESTARG(ON, mbrstate, 1)
 			TESTARG(on, mbrstate, 1)
 			TESTARG(off, mbrstate, 0)
 			TESTARG(OFF, mbrstate, 0)
 			TESTFAIL("Invalid setMBRDone argument not <on|off>")
+			OPTION_IS(userid)
 			OPTION_IS(password)
 			OPTION_IS(device)
 			END_OPTION
-		BEGIN_OPTION(setLockingRange, 4)
+		BEGIN_OPTION(setLockingRange, 5)
 			TESTARG(0, lockingrange, 0)
 			TESTARG(1, lockingrange, 1)
 			TESTARG(2, lockingrange, 2)
@@ -310,6 +313,7 @@ uint8_t DtaOptions(int argc, char * argv[], DTA_OPTIONS * opts)
 			TESTARG(LK, lockingstate, OPAL_LOCKINGSTATE::LOCKED)
 			TESTARG(lk, lockingstate, OPAL_LOCKINGSTATE::LOCKED)
 			TESTFAIL("Invalid locking state <ro|rw|lk>")
+			OPTION_IS(userid)
 			OPTION_IS(password)
 			OPTION_IS(device)
 			END_OPTION
@@ -549,6 +553,11 @@ uint8_t DtaOptions(int argc, char * argv[], DTA_OPTIONS * opts)
 			OPTION_IS(device)
 		END_OPTION
 		BEGIN_OPTION(rawCmd, 7) i += 6; OPTION_IS(device) END_OPTION
+		BEGIN_OPTION(addUserToLockingACEs, 3)
+			OPTION_IS(userid)
+			OPTION_IS(password)
+			OPTION_IS(device)
+			END_OPTION
 		else {
             LOG(E) << "Invalid command line argument " << argv[i];
 			return DTAERROR_INVALID_COMMAND;

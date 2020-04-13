@@ -50,7 +50,7 @@ typedef struct _DTA_OPTIONS {
 void usage();
 /** Parse the command line and return a structure that describes the action desired
  * @param argc program argc parameter 
- * @param argv program argv paramater
+ * @param argv program argv parameter
  * @param opts pointer to options structure to be filled out
  */
 uint8_t DtaOptions(int argc, char * argv[], DTA_OPTIONS * opts);
@@ -99,12 +99,12 @@ typedef enum _sedutiloption {
     printPasswordHash,
     prepareForS3Sleep,
 	rawCmd,
-
+    addUserToLockingACEs,
 } sedutiloption;
 /** verify the number of arguments passed */
 #define CHECKARGS(x) \
 if((x+baseOptions) != argc) { \
-	LOG(E) << "Incorrect number of paramaters for " << argv[i] << " command"; \
+	LOG(E) << "Incorrect number of parameters for " << argv[i] << " command"; \
 	return 100; \
 	}
 /** Test the command input for a recognized argument */

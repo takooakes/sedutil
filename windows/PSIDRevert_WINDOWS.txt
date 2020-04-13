@@ -11,7 +11,8 @@
     If you get a message that says NOT_AUTHORIZED you entered the PSID wrong.
 
 If it doesn't work please execute the command in step 3 with a -vvvvv (5 v's) as the first option and
-redirect the output to a file and send it back to me.
+redirect the output to a file and post an issue on the SEDutil GitHub site.  NOTE that under Windows
+the -vvvvv option may not work in current/recent builds.
 example:
 sedutil-cli -vvvvv --yesIreallywanttoERASEALLmydatausingthePSID <YOURPSID> \\.\PhysicalDrive? > revertlog.txt 2>&1
 

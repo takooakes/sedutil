@@ -139,7 +139,7 @@ void DtaDevOS::identify(OPAL_DiskInfo& di)
 	LOG(D1) << "Exiting DtaDevOS::identify()";
 	return(disk->identify(di));
 }
-/** Static member to scann for supported drives */
+/** Static member to scan for supported drives */
 int DtaDevOS::diskScan()
 {
 	char devname[25];
@@ -174,7 +174,7 @@ int DtaDevOS::diskScan()
 	printf("No more disks present ending scan\n");
 	return 0;
 }
-/** Close the filehandle so this object can be delete. */
+/** Close the filehandle so this object can be deleted. */
 
 DtaDevOS::~DtaDevOS()
 {

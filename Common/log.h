@@ -341,6 +341,7 @@ inline std::string NowTime() {
 
 #else
 
+// per @jacmet in DTA #250
 #include <time.h>
 #include <sys/time.h>
 
