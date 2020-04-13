@@ -14,16 +14,16 @@ GREP=grep
 NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=clang
+CCC=clang++
+CXX=clang++
 FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
+CND_PLATFORM=CLang-Generic
 CND_DLIB_EXT=so
-CND_CONF=Release_i686
+CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -55,20 +55,19 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/cdbdd37b/chash.o \
 	${OBJECTDIR}/_ext/cdbdd37b/hmac.o \
 	${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o \
-	${OBJECTDIR}/_ext/cdbdd37b/sha512.o \
+	${OBJECTDIR}/_ext/cdbdd37b/sha1.o \
 	${OBJECTDIR}/_ext/7a2a93ab/sedutil.o \
-	${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o \
-	${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o \
-	${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o \
+	${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDCAM.o \
+	${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDNvme.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevOS.o
 
 
 # C Compiler Flags
-CFLAGS=-m32 -Wall
+CFLAGS=-Wall
 
 # CC Compiler Flags
-CCFLAGS=-m32 -Wall
-CXXFLAGS=-m32 -Wall
+CCFLAGS=-Wall
+CXXFLAGS=-Wall
 
 # Fortran Compiler Flags
 FFLAGS=-Wall
@@ -77,7 +76,7 @@ FFLAGS=-Wall
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lcam
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -85,7 +84,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sedutil-cli: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sedutil-cli ${OBJECTFILES} ${LDLIBSOPTIONS}
+	clang++ -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/sedutil-cli ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/_ext/7a2a93ab/DtaAnnotatedDump.o: ../../Common/DtaAnnotatedDump.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/7a2a93ab
@@ -187,30 +186,25 @@ ${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o: ../../Common/pbkdf2/pbkdf2.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o ../../Common/pbkdf2/pbkdf2.c
 
-${OBJECTDIR}/_ext/cdbdd37b/sha512.o: ../../Common/pbkdf2/sha512.c
+${OBJECTDIR}/_ext/cdbdd37b/sha1.o: ../../Common/pbkdf2/sha1.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/cdbdd37b
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/sha512.o ../../Common/pbkdf2/sha512.c
+	$(COMPILE.c) -O2 -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/cdbdd37b/sha1.o ../../Common/pbkdf2/sha1.c
 
 ${OBJECTDIR}/_ext/7a2a93ab/sedutil.o: ../../Common/sedutil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/7a2a93ab
 	${RM} "$@.d"
 	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/7a2a93ab/sedutil.o ../../Common/sedutil.cpp
 
-${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o: ../DtaDevLinuxNvme.cpp 
+${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDCAM.o: ../DtaDevFreeBSDCAM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
 	${RM} "$@.d"
-	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o ../DtaDevLinuxNvme.cpp
+	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDCAM.o ../DtaDevFreeBSDCAM.cpp
 
-${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o: ../DtaDevLinuxSata.cpp
+${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDNvme.o: ../DtaDevFreeBSDNvme.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
 	${RM} "$@.d"
-	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o ../DtaDevLinuxSata.cpp
-
-${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o: ../DtaDevLinuxDrive.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
-	${RM} "$@.d"
-	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o ../DtaDevLinuxDrive.cpp
+	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevFreeBSDNvme.o ../DtaDevFreeBSDNvme.cpp
 
 ${OBJECTDIR}/_ext/5c0/DtaDevOS.o: ../DtaDevOS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
