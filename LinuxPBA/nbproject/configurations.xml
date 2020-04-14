@@ -21,6 +21,7 @@
         <itemPath>../Common/pbkdf2/pbkdf2.c</itemPath>
         <itemPath>../Common/pbkdf2/sha512.c</itemPath>
       </logicalFolder>
+      <itemPath>../Common/DtaAnnotatedDump.cpp</itemPath>
       <itemPath>../Common/DtaCommand.cpp</itemPath>
       <itemPath>../Common/DtaDev.cpp</itemPath>
       <itemPath>../Common/DtaDevGeneric.cpp</itemPath>
@@ -89,6 +90,8 @@
           <warningLevel>3</warningLevel>
         </ccTool>
       </compileType>
+      <item path="../Common/DtaAnnotatedDump.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="../Common/DtaCommand.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaDev.cpp" ex="false" tool="1" flavor2="0">
