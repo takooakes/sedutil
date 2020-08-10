@@ -35,6 +35,7 @@
       <itemPath>../Common/DtaDevOpalite.cpp</itemPath>
       <itemPath>../Common/DtaDevPyrite1.cpp</itemPath>
       <itemPath>../Common/DtaDevPyrite2.cpp</itemPath>
+      <itemPath>../Common/DtaDevRuby1.cpp</itemPath>
       <itemPath>../Common/DtaHashPwd.cpp</itemPath>
       <itemPath>../Common/DtaHexDump.cpp</itemPath>
       <itemPath>../Common/DtaResponse.cpp</itemPath>
@@ -109,6 +110,8 @@
       <item path="../Common/DtaDevPyrite1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaDevPyrite2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Common/DtaDevRuby1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaHashPwd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -202,6 +205,8 @@
       <item path="../Common/DtaDevPyrite1.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="../Common/DtaDevPyrite2.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="../Common/DtaDevRuby1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaHashPwd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -299,6 +304,8 @@
       </item>
       <item path="../Common/DtaDevPyrite2.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="../Common/DtaDevRuby1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="../Common/DtaHashPwd.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaHexDump.cpp" ex="false" tool="1" flavor2="0">
@@ -383,6 +390,8 @@
       <item path="../Common/DtaDevPyrite1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaDevPyrite2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Common/DtaDevRuby1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Common/DtaHashPwd.cpp" ex="false" tool="1" flavor2="0">
       </item>
