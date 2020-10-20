@@ -161,6 +161,11 @@ void DtaDev::discovery0()
         length = 48 + length;
     }
 
+    if (length > MIN_BUFFER_LENGTH) {
+	LOG(D) << "Too long Discovery0 response: " << length;
+	length = MIN_BUFFER_LENGTH;
+    }
+
     LOG(D3) << "Dumping D0Response";
     IFLOG(D3) DtaHexDump(hdr, length);
     epos = epos + length;
