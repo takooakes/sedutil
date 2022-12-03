@@ -53,7 +53,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/b7b9df0c/chash.o \
 	${OBJECTDIR}/_ext/b7b9df0c/hmac.o \
 	${OBJECTDIR}/_ext/b7b9df0c/pbkdf2.o \
-	${OBJECTDIR}/_ext/b7b9df0c/sha1.o \
+	${OBJECTDIR}/_ext/b7b9df0c/sha512.o \
 	${OBJECTDIR}/_ext/822bcbe5/DtaDevLinuxNvme.o \
 	${OBJECTDIR}/_ext/822bcbe5/DtaDevLinuxSata.o \
 	${OBJECTDIR}/_ext/822bcbe5/DtaDevOS.o \
@@ -176,10 +176,10 @@ ${OBJECTDIR}/_ext/b7b9df0c/pbkdf2.o: ../Common/pbkdf2/pbkdf2.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -Werror -I../linux -I../Common -I../Common/pbdkf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/b7b9df0c/pbkdf2.o ../Common/pbkdf2/pbkdf2.c
 
-${OBJECTDIR}/_ext/b7b9df0c/sha1.o: ../Common/pbkdf2/sha1.c 
+${OBJECTDIR}/_ext/b7b9df0c/sha512.o: ../Common/pbkdf2/sha512.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/b7b9df0c
 	${RM} "$@.d"
-	$(COMPILE.c) -g -Werror -I../linux -I../Common -I../Common/pbdkf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/b7b9df0c/sha1.o ../Common/pbkdf2/sha1.c
+	$(COMPILE.c) -g -Werror -I../linux -I../Common -I../Common/pbdkf2 -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/b7b9df0c/sha512.o ../Common/pbkdf2/sha512.c
 
 ${OBJECTDIR}/_ext/822bcbe5/DtaDevLinuxNvme.o: ../linux/DtaDevLinuxNvme.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/822bcbe5
