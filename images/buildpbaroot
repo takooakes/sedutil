@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 function die {
-echo An error has occured please fix this and start over
+echo An error has occured! Please fix this and start over!
 exit 99
 }
 . conf
@@ -41,14 +41,21 @@ make dist
 mkdir images/scratch/buildroot/dl/
 cp sedutil-*.tar.gz images/scratch/buildroot/dl/
 make distclean
-cd images/scratch/buildroot
+
+# Expand the distribution tarball so we can use it as the Buildroot override.
+# Override location is specified in the 'local.mk' file in buildroot/{32,64}bit
+# directories.
+# See also section 8.12.6 "Using Buildroot during development" in the
+# Buildroot user manual.
+cd images/scratch/buildroot/dl
+tar xvfz sedutil-*.tar.gz
+cd ..
+
 # build the rootfs for 64 and 32 bit systems
-echo Building bootable systems for the PBA, this is going to take a while ..... Press enter to continue
-read INOUT
 echo Making the 64bit PBA Linux system
-make O=64bit 2>&1 | tee 64bit/build_output.txt
+make -j12 O=64bit 2>&1 | tee 64bit/build_output.txt
 echo Making the 32bit PBA Linux system
-make O=32bit 2>&1 | tee 32bit/build_output.txt
+make -j12 O=32bit 2>&1 | tee 32bit/build_output.txt
 # back to where we started
 cd ../..
 exit 0
