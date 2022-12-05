@@ -58,6 +58,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/cdbdd37b/pbkdf2.o \
 	${OBJECTDIR}/_ext/cdbdd37b/sha512.o \
 	${OBJECTDIR}/_ext/7a2a93ab/sedutil.o \
+	${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevLinuxSata.o \
 	${OBJECTDIR}/_ext/5c0/DtaDevOS.o
@@ -201,6 +202,11 @@ ${OBJECTDIR}/_ext/7a2a93ab/sedutil.o: ../../Common/sedutil.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/7a2a93ab
 	${RM} "$@.d"
 	$(COMPILE.cc) -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/7a2a93ab/sedutil.o ../../Common/sedutil.cpp
+
+${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o: ../DtaDevLinuxDrive.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Werror -I.. -I../../Common -I../../Common/pbkdf2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/DtaDevLinuxDrive.o ../DtaDevLinuxDrive.cpp
 
 ${OBJECTDIR}/_ext/5c0/DtaDevLinuxNvme.o: ../DtaDevLinuxNvme.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0

@@ -33,7 +33,6 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 #include "DtaResponse.h"
 #include "DtaSession.h"
 #include "DtaHexDump.h"
-#include "DtaAnnotatedDump.h"
 
 using namespace std;
 
@@ -1572,7 +1571,6 @@ uint8_t DtaDevOpal::exec(DtaCommand * cmd, DtaResponse & resp, uint8_t protocol)
 	uint8_t lastRC;
     OPALHeader * hdr = (OPALHeader *) cmd->getCmdBuffer();
     LOG(D3) << endl << "Dumping command buffer";
-    IFLOG(D) DtaAnnotatedDump(IF_SEND, cmd->getCmdBuffer(), cmd->outputBufferSize());
     IFLOG(D3) DtaHexDump(cmd->getCmdBuffer(), SWAP32(hdr->cp.length) + sizeof (OPALComPacket));
     if((lastRC = sendCmd(IF_SEND, protocol, comID(), cmd->getCmdBuffer(), cmd->outputBufferSize())) != 0) {
 		LOG(E) << "Command failed on send " << (uint16_t) lastRC;
@@ -1587,7 +1585,6 @@ uint8_t DtaDevOpal::exec(DtaCommand * cmd, DtaResponse & resp, uint8_t protocol)
     }
     while ((0 != hdr->cp.outstandingData) && (0 == hdr->cp.minTransfer));
     LOG(D3) << std::endl << "Dumping reply buffer";
-    IFLOG(D) DtaAnnotatedDump(IF_RECV, cmd->getRespBuffer(), SWAP32(hdr->cp.length) + sizeof (OPALComPacket));
     IFLOG(D3) DtaHexDump(cmd->getRespBuffer(), SWAP32(hdr->cp.length) + sizeof (OPALComPacket));
 	if (0 != lastRC) {
         LOG(E) << "Command failed on recv, returned " << (uint16_t) lastRC;
