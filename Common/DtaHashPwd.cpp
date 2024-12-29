@@ -56,8 +56,6 @@ void DtaHashPassword(vector<uint8_t> &hash, char * password, vector<uint8_t> sal
 		hash.data(), hash.size(),
 		&cf_sha512);
 
-//	gc_pbkdf2_sha1(password, strnlen(password, 256), (const char *)salt.data(), salt.size(), iter,
-//		(char *)hash.data(), hash.size());
 exit:	// add the token overhead
 	hash.insert(hash.begin(), (uint8_t)hash.size());
 	hash.insert(hash.begin(), 0xd0);

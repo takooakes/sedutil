@@ -11,7 +11,7 @@
         <itemPath>../../Common/pbkdf2/handy.h</itemPath>
         <itemPath>../../Common/pbkdf2/hmac.h</itemPath>
         <itemPath>../../Common/pbkdf2/pbkdf2.h</itemPath>
-        <itemPath>../../Common/pbkdf2/sha1.h</itemPath>
+        <itemPath>../../Common/pbkdf2/sha2.h</itemPath>
         <itemPath>../../Common/pbkdf2/tassert.h</itemPath>
       </logicalFolder>
       <itemPath>../../Common/DtaAnnotatedDump.h</itemPath>
@@ -54,7 +54,7 @@
         <itemPath>../../Common/pbkdf2/chash.c</itemPath>
         <itemPath>../../Common/pbkdf2/hmac.c</itemPath>
         <itemPath>../../Common/pbkdf2/pbkdf2.c</itemPath>
-        <itemPath>../../Common/pbkdf2/sha1.c</itemPath>
+        <itemPath>../../Common/pbkdf2/sha512.c</itemPath>
       </logicalFolder>
       <itemPath>../../Common/DtaAnnotatedDump.cpp</itemPath>
       <itemPath>../../Common/DtaCommand.cpp</itemPath>
@@ -242,9 +242,9 @@
       </item>
       <item path="../../Common/pbkdf2/pbkdf2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.c" ex="false" tool="0" flavor2="0">
+      <item path="../../Common/pbkdf2/sha512.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.h" ex="false" tool="3" flavor2="0">
+      <item path="../../Common/pbkdf2/sha2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../Common/pbkdf2/tassert.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -407,9 +407,9 @@
       </item>
       <item path="../../Common/pbkdf2/pbkdf2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.c" ex="false" tool="0" flavor2="0">
+      <item path="../../Common/pbkdf2/sha512.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.h" ex="false" tool="3" flavor2="0">
+      <item path="../../Common/pbkdf2/sha2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../Common/pbkdf2/tassert.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -566,9 +566,9 @@
       </item>
       <item path="../../Common/pbkdf2/pbkdf2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.c" ex="false" tool="0" flavor2="0">
+      <item path="../../Common/pbkdf2/sha512.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.h" ex="false" tool="3" flavor2="0">
+      <item path="../../Common/pbkdf2/sha2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../Common/pbkdf2/tassert.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -731,9 +731,9 @@
       </item>
       <item path="../../Common/pbkdf2/pbkdf2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.c" ex="false" tool="0" flavor2="0">
+      <item path="../../Common/pbkdf2/sha512.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="../../Common/pbkdf2/sha1.h" ex="false" tool="3" flavor2="0">
+      <item path="../../Common/pbkdf2/sha2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../../Common/pbkdf2/tassert.h" ex="false" tool="3" flavor2="0">
       </item>
