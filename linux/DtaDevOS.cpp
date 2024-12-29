@@ -40,6 +40,7 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 #include "DtaDevGeneric.h"
 
 using namespace std;
+uint8_t g_force_dev = FORCE_DEV_NONE;
 
 /** The Device class represents a Linux generic storage device.
   * At initialization we determine if we map to the NVMe or SATA derived class
@@ -56,28 +57,44 @@ DtaDevOS::DtaDevOS()
 void DtaDevOS::init(const char * devref)
 {
 	LOG(D1) << "DtaDevOS::init " << devref;
+	DtaDevLinuxNvme *nvmeDrive = new DtaDevLinuxNvme();
+	bool drive_init = false;
 
 	memset(&disk_info, 0, sizeof(OPAL_DiskInfo));
 	dev = devref;
 
-	if (!strncmp(devref, "/dev/nvme", 9))
+	if (g_force_dev == FORCE_DEV_NVME)
 	{
-//		DtaDevLinuxNvme *NvmeDrive = new DtaDevLinuxNvme();
-		drive = new DtaDevLinuxNvme();
+		drive = nvmeDrive;
+	}
+	else if (g_force_dev == FORCE_DEV_SCSI)
+	{
+		delete nvmeDrive;
+		drive = new DtaDevLinuxSata();
+	}
+	else if (nvmeDrive->init(devref) && nvmeDrive->isNVMe())
+	{
+		drive_init = true;
+		drive = nvmeDrive;
+	}
+	else if (!strncmp(devref, "/dev/nvme", 9))
+	{
+		drive = nvmeDrive;
 	}
 	else if (!strncmp(devref, "/dev/s", 6))
 	{
-//		DtaDevLinuxSata *SataDrive = new DtaDevLinuxSata();
+		delete nvmeDrive;
 		drive = new DtaDevLinuxSata();
 	}
 	else 
         {
+		delete nvmeDrive;
 		LOG(E) << "DtaDevOS::init ERROR - unknown drive type";
                 isOpen = FALSE;
                 return;
         }
 
-	if (drive->init(devref))
+	if (drive_init || drive->init(devref))
 	{
 		isOpen = TRUE;
 		drive->identify(disk_info);
@@ -135,9 +152,12 @@ int  DtaDevOS::diskScan()
     if(dir!=NULL)
     {
         while((dirent=readdir(dir))!=NULL) {
-            if((!fnmatch("sd[a-z]",dirent->d_name,0)) || 
+            if((!fnmatch("sd[a-z]",dirent->d_name,0)) ||
+                    (!fnmatch("sd[a-z][a-z]",dirent->d_name,0)) ||
+                    (!fnmatch("sd[a-z][a-z][a-z]",dirent->d_name,0)) ||
                     (!fnmatch("nvme[0-9]",dirent->d_name,0)) ||
-                    (!fnmatch("nvme[0-9][0-9]",dirent->d_name,0))
+                    (!fnmatch("nvme[0-9][0-9]",dirent->d_name,0)) ||
+                    (!fnmatch("nvme[0-9][0-9][0-9]",dirent->d_name,0))
                     ) {
                 tempstring = dirent->d_name;
                 devices.push_back(tempstring);
@@ -152,10 +172,12 @@ int  DtaDevOS::diskScan()
                 printf("%-10s", devname);
                 d = new DtaDevGeneric(devname);
 		if (d->isAnySSC())
-                    printf(" %s%s%s ", (d->isOpal1() ? "1" : " "),
-			(d->isOpal2() ? "2" : " "), (d->isEprise() ? "E" : " "));
+                    printf(" %s%s%s%s%s%s%s ", (d->isOpal1() ? "1" : " "),
+			(d->isOpal2() ? "2" : " "), (d->isEprise() ? "E" : " "),
+			(d->isOpalite() ? "L" : " "), (d->isPyrite1() ? "p" : " "),
+			(d->isPyrite2() ? "P" : " "), (d->isRuby1() ? "r" : " "));
 		else
-                    printf("%s", " No  ");
+                    printf("%s", " No      ");
                 
                 printf("%s %s\n",d->getModelNum(),d->getFirmwareRev());
                 delete d;

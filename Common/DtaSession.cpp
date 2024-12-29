@@ -98,8 +98,10 @@ DtaSession::start(OPAL_UID SP, char * HostChallenge, vector<uint8_t> SignAuthori
 {
     LOG(D1) << "Entering DtaSession::startSession ";
 	vector<uint8_t> hash;
+	int settimeout = d->isEprise();
 	lastRC = 0;
 
+again:
     DtaCommand *cmd = new DtaCommand();
 	if (NULL == cmd) {
 		LOG(E) << "Unable to create session object ";
@@ -131,7 +133,7 @@ DtaSession::start(OPAL_UID SP, char * HostChallenge, vector<uint8_t> SignAuthori
 	// w/o the timeout the session may wedge and require a power-cycle,
 	// e.g., when interrupted by ^C. 60 seconds is inconveniently long,
 	// but revert may require that long to complete.
-	if (d->isEprise()) {
+	if (settimeout) {
 		cmd->addToken(OPAL_TOKEN::STARTNAME);
 		cmd->addToken("SessionTimeout");
 		cmd->addToken(60000);
@@ -140,9 +142,14 @@ DtaSession::start(OPAL_UID SP, char * HostChallenge, vector<uint8_t> SignAuthori
 
     cmd->addToken(OPAL_TOKEN::ENDLIST); // ]  (Close Bracket)
     cmd->complete();
-	if ((lastRC = sendCommand(cmd, response)) != 0) {
-		LOG(E) << "Session start failed rc = " << (int)lastRC;
+	if ((lastRC = sendCommand(cmd, response, FALSE)) != 0) {
 		delete cmd;
+		if (settimeout) {
+			LOG(D2) << "Session start with timeout failed rc = " << (int)lastRC;
+			settimeout = 0;
+			goto again;
+		}
+		LOG(E) << "Session start failed rc = " << (int)lastRC;
 		return lastRC;
 	}  
     // call user method SL HSN TSN EL EOD SL 00 00 00 EL
@@ -203,8 +210,10 @@ DtaSession::authenticate(vector<uint8_t> Authority, char * Challenge)
 	return 0;
 }
 uint8_t
-DtaSession::sendCommand(DtaCommand * cmd, DtaResponse & response)
+DtaSession::sendCommand(DtaCommand * cmd, DtaResponse & response, bool logerr)
 {
+	enum TLogLevel l = logerr ? E : D1;
+
     LOG(D1) << "Entering DtaSession::sendCommand()";
     cmd->setHSN(HSN);
     cmd->setTSN(TSN);
@@ -213,7 +222,7 @@ DtaSession::sendCommand(DtaCommand * cmd, DtaResponse & response)
     uint8_t exec_rc = d->exec(cmd, response, SecurityProtocol);
     if (0 != exec_rc)
     {
-        LOG(E) << "Command failed on exec " << (uint16_t) exec_rc;
+        LOG(l) << "Command failed on exec " << (uint16_t) exec_rc;
         return exec_rc;
     }
     /*
@@ -221,10 +230,16 @@ DtaSession::sendCommand(DtaCommand * cmd, DtaResponse & response)
      * have a sane reply to work with
      */
     // zero lengths -- these are big endian but it doesn't matter for uint = 0
+    if ((0 == response.h.cp.outstandingData) &&
+        (0 == response.h.cp.minTransfer) &&
+        (0 == response.h.cp.length)) {
+        LOG(D1) << "All Response(s) returned – no further data, request parsing error";
+		return DTAERROR_COMMAND_ERROR;
+    }
     if ((0 == response.h.cp.length) ||
         (0 == response.h.pkt.length) ||
         (0 == response.h.subpkt.length)) {
-        LOG(E) << "One or more header fields have 0 length";
+        LOG(l) << "One or more header fields have 0 length";
 		return DTAERROR_COMMAND_ERROR;
     }
     // if we get an endsession response return 0
@@ -235,11 +250,11 @@ DtaSession::sendCommand(DtaCommand * cmd, DtaResponse & response)
     if (!((OPAL_TOKEN::ENDLIST == response.tokenIs(response.getTokenCount() - 1)) &&
         (OPAL_TOKEN::STARTLIST == response.tokenIs(response.getTokenCount() - 5)))) {
         // no method status so we hope we reported the error someplace else
-        LOG(E) << "Method Status missing";
+        LOG(l) << "Method Status missing";
 		return DTAERROR_NO_METHOD_STATUS;
     }
     if (OPALSTATUSCODE::SUCCESS != response.getUint8(response.getTokenCount() - 4)) {
-        LOG(E) << "method status code " <<
+        LOG(l) << "method status code " <<
                 methodStatus(response.getUint8(response.getTokenCount() - 4));
     }
     return response.getUint8(response.getTokenCount() - 4);
@@ -255,14 +270,14 @@ DtaSession::setProtocol(uint8_t value)
 void
 DtaSession::dontHashPwd()
 {
-	LOG(D1) << "Entering DtaSession::setProtocol";
+	LOG(D1) << "Entering DtaSession::dontHashPwd";
 	hashPwd = 0;
 }
 
 void
 DtaSession::expectAbort()
 {
-    LOG(D1) << "Entering DtaSession::methodStatus()";
+    LOG(D1) << "Entering DtaSession::expectAbort()";
     willAbort = 1;
 }
 

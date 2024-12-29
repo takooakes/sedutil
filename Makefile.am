@@ -12,6 +12,10 @@ SEDUTIL_COMMON_CODE = Common/log.h \
 	Common/DtaDevGeneric.h Common/DtaDevOpal1.h \
 	Common/DtaDevOpal2.cpp Common/DtaDevOpal.cpp \
 	Common/DtaDevOpal2.h Common/DtaDevOpal.h \
+	Common/DtaDevOpalite.cpp Common/DtaDevPyrite1.cpp \
+	Common/DtaDevOpalite.h Common/DtaDevPyrite1.h \
+	Common/DtaDevPyrite2.cpp Common/DtaDevRuby1.cpp \
+	Common/DtaDevPyrite2.h Common/DtaDevRuby1.h \
 	Common/DtaDiskType.cpp Common/DtaHashPwd.cpp \
 	Common/DtaDiskType.h Common/DtaHashPwd.h \
 	Common/DtaHexDump.cpp Common/DtaResponse.cpp \
@@ -22,8 +26,8 @@ SEDUTIL_COMMON_CODE = Common/log.h \
 	Common/pbkdf2/chash.h Common/pbkdf2/hmac.h \
 	Common/pbkdf2/pbkdf2.c Common/pbkdf2/sha1.c \
 	Common/pbkdf2/pbkdf2.h Common/pbkdf2/sha1.h \
-	Common/pbkdf2/bitops.h Common/pbkdf2/blockwise.h \
-	Common/pbkdf2/handy.h Common/pbkdf2/tassert.h 
+	Common/pbkdf2/handy.h Common/pbkdf2/tassert.h \
+	Common/pbkdf2/bitops.h
 SEDUTIL_LINUX_CODE = \
 	linux/Version.h linux/os.h linux/DtaDevLinuxDrive.h \
 	linux/DtaDevLinuxNvme.cpp linux/DtaDevLinuxSata.cpp \
